@@ -1,9 +1,61 @@
 {% extends "base.html" %}
 
 {% block content %}
-   <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center">List of Companies</h1>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Sector</th>
+              <th scope="col">Siren</th>
+              <th scope="col">Results</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if companies %}
+              {% for companie in companies %}
+                <tr>
+                  <th scope="row"> {{ companie.id }} </th>
+                  <td> {{ companie.name }} </td>
+                  <td> {{ companie.sector }} </td>
+                  <td> {{ companie.siren }} </td>
+                  <td>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">CA</th>
+                          <th scope="col">Margin</th>
+                          <th scope="col">Ebitda</th>
+                          <th scope="col">Loss</th>
+                          <th scope="col">Year</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for result in companie.results %}
+                          <tr>
+                            <td> ca </td>
+                            <td> margin</td>
+                            <td> ebitda</td>
+                            <td> loss </td>
+                            <td> year </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="3"> No companies yet </td>
+                </tr>
+            {% endif %}
+          </tbody>
+        </table>
+    </div>        
+</div>
 
 {% endblock content %}
