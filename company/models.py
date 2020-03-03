@@ -12,15 +12,6 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
-    @classmethod
-    def create(cls, **kwargs):
-        company = cls.objects.create(
-            name=kwargs['name'],
-            sector=kwargs['sector'],
-            siren=kwargs['siren'],
-        )
-        return company
-
 
 class Result(models.Model):
     ca = models.IntegerField()
@@ -28,7 +19,8 @@ class Result(models.Model):
     ebitda = models.IntegerField()
     loss = models.IntegerField()
     year = models.IntegerField()
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(
+        Company, on_delete=models.CASCADE, related_name='results')
 
     def __str__(self):
         return self.ca

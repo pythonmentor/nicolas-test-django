@@ -11,70 +11,51 @@
               <th scope="col">Name</th>
               <th scope="col">Sector</th>
               <th scope="col">Siren</th>
-              <th scope="col">Results</th>
+              <th scope="col">CA</th>
+              <th scope="col">Margin</th>
+              <th scope="col">Ebitda</th>
+              <th scope="col">Loss</th>
+              <th scope="col">Year</th>
             </tr>
           </thead>
           <tbody>
-            {% if companies %}
-              {% for companie in companies %}
+              {% for company in companies %}
                 <tr>
-                  <th scope="row"> {{ companie.id }} </th>
-                  <td> {{ companie.name }} </td>
-                  <td> {{ companie.sector }} </td>
-                  <td> {{ companie.siren }} </td>
-                  <td>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">CA</th>
-                          <th scope="col">Margin</th>
-                          <th scope="col">Ebitda</th>
-                          <th scope="col">Loss</th>
-                          <th scope="col">Year</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% for result in companie.results %}
-                          <tr>
-                            <td> ca </td>
-                            <td> margin</td>
-                            <td> ebitda</td>
-                            <td> loss </td>
-                            <td> year </td>
-                          </tr>
-                        {% endfor %}
-                      </tbody>
-                    </table>
-                  </td>
+                  <th scope="row"> {{ company.id }} </th>
+                  <td> {{ company.name }} </td>
+                  <td> {{ company.sector }} </td>
+                  <td> {{ company.siren }} </td>
+                  {% for result in company.results.all() %}
+                    <td> {{ result.ca }} </td>
+                    <td> {{ result.margin }} </td>
+                    <td> {{ result.ebitda }} </td>
+                    <td> {{ result.loss }} </td>
+                    <td> {{ result.year }} </td>
+                  {% endfor %}
                 </tr>
               {% endfor %}
-              {% else %}
-                <tr>
-                  <td colspan="3"> No companies yet </td>
-                </tr>
-            {% endif %}
           </tbody>
         </table>
     </div>        
 </div>
-<div class='row justify-content-center'>
+{% comment %} <div class='row justify-content-center'>
   <div class='col-md-12'>
     <div class="pagination">
       <div class="step-links">
-        {% if companies.has_previous %}
-            <a href="?page={{ companies.previous_page_number }}">previous</a>
+        {% if results.has_previous %}
+            <a href="?page={{ results.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current">
-            Page {{ companies.number }} of {{ companies.paginator.num_pages }}.
+            Page {{ results.number }} of {{ results.paginator.num_pages }}.
         </span>
 
-        {% if companies.has_next %}
-            <a href="?page={{ companies.next_page_number }}">next</a>
+        {% if results.has_next %}
+            <a href="?page={{ results.next_page_number }}">next</a>
         {% endif %}
       </div>
     </div>
   </div>
-</div>
+</div> {% endcomment %}
 
 {% endblock content %}
